@@ -1,16 +1,21 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BoxGenerator : MonoBehaviour
 {
     [SerializeField] private GameObject boxPrefab;
     [SerializeField] private Vector2 sizeOfBox;
-    Dictionary<int, KeyCode> keyboardMapping = new Dictionary<int, KeyCode>();
-    List<Transform> cubes = new List<Transform>();
-    bool[] isKeyDown;
-    int[] areaKeyDown;
-    [SerializeField] float fLeanSpeed;
+    private Dictionary<int, KeyCode> keyboardMapping = new Dictionary<int, KeyCode>();
+    private List<Transform> cubes = new List<Transform>();
+    private bool[] isKeyDown;
+    private int[] areaKeyDown;
+    [SerializeField] private float fLeanSpeed;
+
+    // Text releated
+    [SerializeField] private Text scoreTime;
+    private float fLiveTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -69,6 +74,8 @@ public class BoxGenerator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        fLiveTime += Time.deltaTime;
+        scoreTime.text = (int)fLiveTime + "s";
         KeyboardEvent();
     }
 
@@ -180,8 +187,6 @@ public class BoxGenerator : MonoBehaviour
             rotator.Rotate(rotator.forward, fLeanSpeed * _amount * Time.deltaTime);
 
         }
-
-
-
     }
+
 }
